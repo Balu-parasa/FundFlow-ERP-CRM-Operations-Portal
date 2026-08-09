@@ -175,9 +175,10 @@ Variables required (see `.env.example`):
 
 ## 12. Demo Credentials
 (For case-study evaluation in development environments)
-- **Admin**: admin@fundsroom.com / password123
-- **Sales**: sales@fundsroom.com / password123
-- **Warehouse**: warehouse@fundsroom.com / password123
+- **Admin**: admin@fundsroom.com / Admin@123
+- **Sales**: sales@fundsroom.com / Sales@123
+- **Warehouse**: warehouse@fundsroom.com / Warehouse@123
+- **Accounts**: accounts@fundsroom.com / Accounts@123
 
 ## 13. Case Study Workflow
 
