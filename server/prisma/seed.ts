@@ -8,10 +8,10 @@ async function main() {
 
   // 1. Seed Users
   const usersData = [
-    { name: 'Admin User', email: 'admin@fundsroom.com', role: Role.ADMIN, password: 'Admin@123' },
-    { name: 'Sales User', email: 'sales@fundsroom.com', role: Role.SALES, password: 'Sales@123' },
-    { name: 'Warehouse User', email: 'warehouse@fundsroom.com', role: Role.WAREHOUSE, password: 'Warehouse@123' },
-    { name: 'Accounts User', email: 'accounts@fundsroom.com', role: Role.ACCOUNTS, password: 'Accounts@123' },
+    { name: 'Admin User', email: 'baluparas@gmail.com', role: Role.ADMIN, password: 'passowrd123' },
+    { name: 'Sales User', email: 'ramuparas@gmail.com', role: Role.SALES, password: 'passowrd123' },
+    { name: 'Warehouse User', email: 'ajay@gmail.com', role: Role.WAREHOUSE, password: 'passowrd123' },
+    { name: 'Accounts User', email: 'pavan@gmail.com', role: Role.ACCOUNTS, password: 'passowrd123' },
   ];
 
   for (const user of usersData) {

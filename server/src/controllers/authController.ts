@@ -2,10 +2,61 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { loginSchema } from '../validators/authValidator';
+import { loginSchema, signupSchema } from '../validators/authValidator';
 import { asyncHandler } from '../utils/asyncHandler';
 
 const prisma = new PrismaClient();
+
+export const signup = asyncHandler(async (req: Request, res: Response) => {
+  const { name, email, password, role } = signupSchema.parse(req.body);
+
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (existingUser) {
+    return res.status(409).json({
+      success: false,
+      message: 'Email already in use',
+    });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const user = await prisma.user.create({
+    data: {
+      name,
+      email,
+      password: hashedPassword,
+      role: role as any,
+    },
+  });
+
+  const secret = process.env.JWT_SECRET || 'fallback_secret_change_me';
+  const token = jwt.sign(
+    {
+      userId: user.id,
+      email: user.email,
+      role: user.role,
+    },
+    secret,
+    { expiresIn: '24h' }
+  );
+
+  return res.status(201).json({
+    success: true,
+    message: 'User created successfully',
+    data: {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+      token,
+    },
+  });
+});
 
 export const login = asyncHandler(async (req: Request, res: Response) => {
   // 1. Zod Validation (will automatically raise a ZodError if fields are missing/invalid, caught by errorHandler)

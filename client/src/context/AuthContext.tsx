@@ -12,6 +12,7 @@ interface AuthContextType {
   token: string | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string, role: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -77,6 +78,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(newUser);
   };
 
+  const signup = async (name: string, email: string, password: string, role: string) => {
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, role }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.message || 'Signup failed');
+    }
+
+    const { token: newToken, user: newUser } = data.data;
+    localStorage.setItem('token', newToken);
+    setToken(newToken);
+    setUser(newUser);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -84,6 +104,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         token,
         isLoading,
         login,
+        signup,
         logout,
         isAuthenticated: !!user,
       }}

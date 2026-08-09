@@ -22,6 +22,7 @@ FundsRoom ERP is a full-stack enterprise operations portal designed to manage cu
 - role-based authorization
 - protected API routes
 - role-specific access
+- open user registration with role selection
 
 ### Customer CRM
 - customer creation

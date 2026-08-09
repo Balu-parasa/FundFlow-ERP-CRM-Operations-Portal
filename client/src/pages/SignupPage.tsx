@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, Lock, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, Briefcase, ArrowRight, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-export default function LoginPage() {
-  const { login } = useAuth();
+export default function SignupPage() {
+  const { signup } = useAuth();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('SALES');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,9 +18,9 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      await login(email, password);
+      await signup(name, email, password, role);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError(err instanceof Error ? err.message : 'Signup failed');
     } finally {
       setIsLoading(false);
     }
@@ -45,12 +47,10 @@ export default function LoginPage() {
           </div>
 
           <h2 className="text-3xl font-bold text-text-primary leading-tight mb-4">
-            One workspace for customers, inventory and sales operations.
+            Join the workspace.
           </h2>
           <p className="text-text-muted text-sm leading-relaxed mb-10">
-            Streamline your business with a modern operations portal. Manage
-            CRM, track inventory, create challans, and monitor stock — all in
-            one place.
+            Create an account to start managing customers, tracking inventory, and processing sales challans instantly.
           </p>
 
           {/* Decorative cards */}
@@ -67,7 +67,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Panel — Login Form */}
+      {/* Right Panel — Signup Form */}
       <div className="flex-1 flex items-center justify-center relative z-10 p-6">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
@@ -81,10 +81,10 @@ export default function LoginPage() {
           <div className="glass-panel p-8">
             <div className="mb-8">
               <h3 className="text-xl font-bold text-text-primary mb-1">
-                Welcome back
+                Create an account
               </h3>
               <p className="text-sm text-text-muted">
-                Sign in to access your workspace
+                Sign up to access your workspace
               </p>
             </div>
 
@@ -99,7 +99,23 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name */}
+              <div>
+                <label className="input-label">Full Name</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="John Doe"
+                    required
+                    className="input-field !pl-10"
+                  />
+                </div>
+              </div>
+
               {/* Email */}
               <div>
                 <label className="input-label">Email</label>
@@ -109,7 +125,7 @@ export default function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="baluparas@gmail.com"
+                    placeholder="john@example.com"
                     required
                     className="input-field !pl-10"
                     autoComplete="email"
@@ -129,8 +145,28 @@ export default function LoginPage() {
                     placeholder="••••••••"
                     required
                     className="input-field !pl-10"
-                    autoComplete="current-password"
+                    autoComplete="new-password"
+                    minLength={6}
                   />
+                </div>
+              </div>
+
+              {/* Role */}
+              <div>
+                <label className="input-label">Role</label>
+                <div className="relative">
+                  <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted z-10" />
+                  <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="input-field !pl-10"
+                    required
+                  >
+                    <option value="SALES">Sales</option>
+                    <option value="WAREHOUSE">Warehouse</option>
+                    <option value="ACCOUNTS">Accounts</option>
+                    <option value="ADMIN">Admin</option>
+                  </select>
                 </div>
               </div>
 
@@ -138,28 +174,28 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="btn-primary w-full justify-center text-sm py-3"
+                className="btn-primary w-full justify-center text-sm py-3 mt-2"
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-[spin_0.6s_linear_infinite]" />
-                    Signing in...
+                    Signing up...
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    Sign in
+                    Create Account
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 )}
               </button>
             </form>
 
-            {/* Signup Link */}
+            {/* Login Link */}
             <div className="mt-6 pt-5 border-t border-border-base text-center">
               <p className="text-sm text-text-muted">
-                Don't have an account?{' '}
-                <Link to="/signup" className="font-semibold" style={{ color: 'var(--color-accent-burgundy)' }}>
-                  Sign up
+                Already have an account?{' '}
+                <Link to="/login" className="font-semibold" style={{ color: 'var(--color-accent-burgundy)' }}>
+                  Sign in
                 </Link>
               </p>
             </div>
