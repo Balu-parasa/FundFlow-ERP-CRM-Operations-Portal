@@ -41,6 +41,10 @@ export async function api<T = unknown>(
   const data = await res.json();
 
   if (!res.ok) {
+    if (data.errors && Array.isArray(data.errors)) {
+      const errorMsg = data.errors.map((e: any) => `${e.field}: ${e.message}`).join(', ');
+      throw new Error(errorMsg || data.message || 'Validation Error');
+    }
     throw new Error(data.message || `Request failed with status ${res.status}`);
   }
 

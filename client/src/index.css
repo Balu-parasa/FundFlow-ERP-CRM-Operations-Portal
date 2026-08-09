@@ -16,17 +16,17 @@
   /* ---- Borders ---- */
   --color-border-base: #DEE2E6;
   --color-border-subtle: #E9ECEF;
-  --color-border-accent: #0B2B26; /* Dark Navy Green */
+  --color-border-accent: #4A1725; /* Deep Burgundy */
 
   /* ---- Accent Palette ---- */
-  --color-accent-burgundy: #0B2B26; /* Kept variable name for compatibility, mapped to Dark Navy Green */
+  --color-accent-burgundy: #4A1725;
   --color-accent-ivory: #F4F5F7;
 
   /* ---- Text ---- */
   --color-text-primary: #1A1D20; /* Very dark slate */
   --color-text-secondary: #495057; /* Muted slate */
   --color-text-muted: #6C757D;
-  --color-text-accent: #0B2B26;
+  --color-text-accent: #4A1725;
 
   /* ---- Functional ---- */
   --color-success: #059669;

@@ -20,7 +20,7 @@ interface Customer {
   mobile: string;
   email: string;
   businessName: string;
-  type: string;
+  customerType: string;
   status: string;
   followUpDate: string | null;
 }
@@ -36,7 +36,7 @@ export default function CustomersPage() {
   // Filters & Pagination
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
-  const [type, setType] = useState('');
+  const [customerType, setCustomerType] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
@@ -53,7 +53,7 @@ export default function CustomersPage() {
     email: '',
     businessName: '',
     gstNumber: '',
-    type: 'PROSPECT',
+    customerType: 'RETAIL',
     status: 'ACTIVE',
     address: '',
     followUpDate: '',
@@ -69,7 +69,7 @@ export default function CustomersPage() {
       });
       if (search) params.append('search', search);
       if (status) params.append('status', status);
-      if (type) params.append('type', type);
+      if (customerType) params.append('customerType', customerType);
 
       const res = await api(`/customers?${params.toString()}`, { token });
       setCustomers((res.data as any)?.customers || res.data || []);
@@ -90,7 +90,7 @@ export default function CustomersPage() {
       fetchCustomers();
     }, 300);
     return () => clearTimeout(delayDebounceFn);
-  }, [search, status, type, page, token]);
+  }, [search, status, customerType, page, token]);
 
   const openAddModal = () => {
     setEditingCustomer(null);
@@ -100,7 +100,7 @@ export default function CustomersPage() {
       email: '',
       businessName: '',
       gstNumber: '',
-      type: 'PROSPECT',
+      customerType: 'RETAIL',
       status: 'ACTIVE',
       address: '',
       followUpDate: '',
@@ -120,7 +120,7 @@ export default function CustomersPage() {
         email: customer.email,
         businessName: customer.businessName,
         gstNumber: customer.gstNumber || '',
-        type: customer.type,
+        customerType: customer.customerType || 'RETAIL',
         status: customer.status,
         address: customer.address || '',
         followUpDate: customer.followUpDate ? new Date(customer.followUpDate).toISOString().split('T')[0] : '',
@@ -204,20 +204,21 @@ export default function CustomersPage() {
                 <option value="">All Statuses</option>
                 <option value="ACTIVE">Active</option>
                 <option value="INACTIVE">Inactive</option>
+                <option value="LEAD">Lead</option>
               </select>
             </div>
             
             <div className="relative">
               <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-text-muted pointer-events-none" />
               <select
-                value={type}
-                onChange={(e) => { setType(e.target.value); setPage(1); }}
+                value={customerType}
+                onChange={(e) => { setCustomerType(e.target.value); setPage(1); }}
                 className="input-field pl-9 py-1.5 text-xs w-full md:w-36"
               >
                 <option value="">All Types</option>
-                <option value="CUSTOMER">Customer</option>
-                <option value="LEAD">Lead</option>
-                <option value="PROSPECT">Prospect</option>
+                <option value="RETAIL">Retail</option>
+                <option value="WHOLESALE">Wholesale</option>
+                <option value="DISTRIBUTOR">Distributor</option>
               </select>
             </div>
           </div>
@@ -263,7 +264,7 @@ export default function CustomersPage() {
                         <span className="text-text-muted">{c.email}</span>
                       </div>
                     </td>
-                    <td><StatusBadge status={c.type} /></td>
+                    <td><StatusBadge status={c.customerType} /></td>
                     <td><StatusBadge status={c.status} /></td>
                     <td>
                       {c.followUpDate 
@@ -349,10 +350,10 @@ export default function CustomersPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="input-label">Customer Type *</label>
-                  <select className="input-field" value={formData.type} onChange={(e) => setFormData({...formData, type: e.target.value})}>
-                    <option value="CUSTOMER">Customer</option>
-                    <option value="LEAD">Lead</option>
-                    <option value="PROSPECT">Prospect</option>
+                  <select className="input-field" value={formData.customerType} onChange={(e) => setFormData({...formData, customerType: e.target.value})}>
+                    <option value="RETAIL">Retail</option>
+                    <option value="WHOLESALE">Wholesale</option>
+                    <option value="DISTRIBUTOR">Distributor</option>
                   </select>
                 </div>
                 <div>
@@ -360,6 +361,7 @@ export default function CustomersPage() {
                   <select className="input-field" value={formData.status} onChange={(e) => setFormData({...formData, status: e.target.value})}>
                     <option value="ACTIVE">Active</option>
                     <option value="INACTIVE">Inactive</option>
+                    <option value="LEAD">Lead</option>
                   </select>
                 </div>
               </div>
