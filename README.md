@@ -1,4 +1,6 @@
+# FundsRoom ERP
 
+A full-stack ERP system for customer management, inventory management, stock movements, and sales challan processing.
 
 ## 1. Project Overview
 
