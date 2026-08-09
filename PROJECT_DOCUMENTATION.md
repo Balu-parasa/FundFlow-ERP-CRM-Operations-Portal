@@ -362,14 +362,18 @@ For case study evaluation, we recommend this linear flow:
 
 The frontend is built with Tailwind CSS and Lucide React, providing a clean and professional dashboard interface. Data is presented in structured tables with state indicators like colored badges for Challan status and low stock warnings. The UX is optimized for readability and fast interactions.
 
-## 20. FUTURE IMPROVEMENTS
+## 20. POSTMAN COLLECTION & API DOCS
 
-- cloud deployment
-- automated testing
-- advanced reporting
-- notifications
-- audit dashboards
+A complete Postman collection is included in the repository at `postman/FundsRoom-ERP.postman_collection.json`. 
+It provides fully configured endpoints for authentication, CRM, inventory, and challans. It utilizes the `{{baseUrl}}` variable and dynamic `{{token}}` injection after login for seamless evaluation.
 
-## 21. CONCLUSION
+## 21. KNOWN LIMITATIONS
+
+- **File Uploads**: Attachments and product images are intentionally omitted.
+- **Reporting**: Advanced analytics and PDF generation are placeholders.
+- **Notifications**: Email notifications on registration or challan status changes are not implemented.
+- **Deployment**: The provided setup is strictly for local case-study evaluation.
+
+## 22. CONCLUSION
 
 FundsRoom ERP provides a centralized workflow for CRM, inventory, stock movement, and sales challan management. With robust authentication, fine-grained authorization, strict payload validation, and transaction-safe inventory operations, it serves as a reliable enterprise portal for core business operations.

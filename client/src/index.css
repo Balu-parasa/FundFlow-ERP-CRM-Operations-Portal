@@ -3,30 +3,30 @@
 @import "tailwindcss";
 
 /* ============================================
-   FUNDSROOM ERP — PREMIUM LIGHT DESIGN SYSTEM
+   FUNDSROOM ERP — PREMIUM DESIGN SYSTEM
    ============================================ */
 
 @theme {
   /* ---- Background Layers ---- */
-  --color-bg-base: #FAF7F2;      /* Warm Ivory - Main Background */
+  --color-bg-base: #F4F5F7;      /* Off White - Main Background */
   --color-bg-surface: #FFFFFF;   /* Cards / Modals */
-  --color-bg-elevated: #F4EBE6;  /* Subtle off-background */
+  --color-bg-elevated: #E9ECEF;  /* Subtle off-background */
   --color-bg-card: #FFFFFF;
 
   /* ---- Borders ---- */
-  --color-border-base: #E8DFD8;
-  --color-border-subtle: #F0E9E4;
-  --color-border-accent: #4A1725; /* Deep Burgundy */
+  --color-border-base: #DEE2E6;
+  --color-border-subtle: #E9ECEF;
+  --color-border-accent: #0B2B26; /* Dark Navy Green */
 
   /* ---- Accent Palette ---- */
-  --color-accent-burgundy: #4A1725;
-  --color-accent-ivory: #FAF7F2;
+  --color-accent-burgundy: #0B2B26; /* Kept variable name for compatibility, mapped to Dark Navy Green */
+  --color-accent-ivory: #F4F5F7;
 
   /* ---- Text ---- */
-  --color-text-primary: #2D2422; /* Very dark brownish-gray */
-  --color-text-secondary: #5C4F4A; /* Muted brownish-gray */
-  --color-text-muted: #8E807A;
-  --color-text-accent: #4A1725;
+  --color-text-primary: #1A1D20; /* Very dark slate */
+  --color-text-secondary: #495057; /* Muted slate */
+  --color-text-muted: #6C757D;
+  --color-text-accent: #0B2B26;
 
   /* ---- Functional ---- */
   --color-success: #059669;

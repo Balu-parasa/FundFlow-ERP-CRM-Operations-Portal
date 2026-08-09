@@ -1,0 +1,382 @@
+{
+  "info": {
+    "name": "FundsRoom ERP",
+    "description": "API collection for FundsRoom ERP (CRM, Inventory, Challans)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if(jsonData.success) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@fundsroom.com\",\n    \"password\": \"Admin@123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 Customers",
+      "item": [
+        {
+          "name": "Get Customers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/customers?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customers"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"mobile\": \"9876543210\",\n    \"email\": \"john@example.com\",\n    \"businessName\": \"Doe Industries\",\n    \"customerType\": \"RETAIL\",\n    \"address\": \"123 Main St\",\n    \"status\": \"LEAD\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customers"]
+            }
+          }
+        },
+        {
+          "name": "Get Customer by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/customers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"ACTIVE\",\n    \"notes\": \"Followed up on Friday\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customers", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 Products",
+      "item": [
+        {
+          "name": "Get Products",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"],
+              "query": [
+                {"key": "page", "value": "1"},
+                {"key": "limit", "value": "10"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Cement Bag 50kg\",\n    \"sku\": \"CEM-50\",\n    \"category\": \"Building Materials\",\n    \"unitPrice\": 350.00,\n    \"currentStock\": 100,\n    \"minimumStock\": 20,\n    \"warehouse\": \"Main WH\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"unitPrice\": 360.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 Stock Movements",
+      "item": [
+        {
+          "name": "Get Stock Movements",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/stock-movements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1", "stock-movements"]
+            }
+          }
+        },
+        {
+          "name": "Add Stock Movement",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quantity\": 50,\n    \"movementType\": \"IN\",\n    \"reason\": \"New Batch Received\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/stock-movements",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "1", "stock-movements"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 Challans",
+      "item": [
+        {
+          "name": "Get Challans",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/challans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "challans"]
+            }
+          }
+        },
+        {
+          "name": "Create Challan (DRAFT)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customerId\": 1,\n    \"items\": [\n        {\n            \"productId\": 1,\n            \"quantity\": 10\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/challans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "challans"]
+            }
+          }
+        },
+        {
+          "name": "Get Challan by ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/challans/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "challans", "1"]
+            }
+          }
+        },
+        {
+          "name": "Confirm Challan",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/challans/1/confirm",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "challans", "1", "confirm"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Challan",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]
+            },
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/challans/1/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "challans", "1", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 Health",
+      "item": [
+        {
+          "name": "Get Health Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

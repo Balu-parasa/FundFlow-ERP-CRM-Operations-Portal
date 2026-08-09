@@ -109,7 +109,7 @@ export default function SignupPage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="John Doe"
+                    placeholder="Balu Parasa"
                     required
                     className="input-field !pl-10"
                   />
@@ -125,7 +125,7 @@ export default function SignupPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="john@example.com"
+                    placeholder="balu@example.com"
                     required
                     className="input-field !pl-10"
                     autoComplete="email"
