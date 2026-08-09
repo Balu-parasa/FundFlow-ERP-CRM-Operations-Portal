@@ -34,16 +34,7 @@ FundsRoom ERP is a full-stack enterprise operations portal designed to manage cu
 - follow-up dates
 - notes
 
-### Product & Inventory
-- product creation
-- SKU management
-- product updates
-- inventory tracking
-- low-stock detection
-- stock IN/OUT movements
-- stock movement history
-- prevention of negative stock
-- prevention of direct stock modification
+
 
 ### Sales Challans
 - draft challans
