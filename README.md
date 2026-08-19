@@ -49,7 +49,13 @@ FundsRoom ERP is a full-stack ERP application designed to manage:
 
 ## 3. Technology Stack
 
-
+**Frontend:**
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Lucide React
 
 **Backend:**
 - Node.js
