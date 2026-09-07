@@ -6,7 +6,27 @@ import { asyncHandler } from '../utils/asyncHandler';
 const prisma = new PrismaClient();
 
 // Helper to generate a unique challan number CH-YYYYMMDD-XXXX
+async function generateChallanNumber(tx: any): Promise<string> {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const dateStr = `${yyyy}${mm}${dd}`;
 
+  // Define start and end of today in local system time
+  const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
+
+  // Retrieve the latest challan created today
+  const lastChallan = await tx.challan.findFirst({
+    where: {
+      createdAt: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    },
+    orderBy: { id: 'desc' },
+  });
 
   let nextSequence = 1;
   if (lastChallan) {
