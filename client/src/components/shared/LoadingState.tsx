@@ -20,7 +20,22 @@ export default function LoadingState({ rows = 5, type = 'table' }: LoadingStateP
     );
   }
 
- 
+  if (type === 'detail') {
+    return (
+      <div className="space-y-6">
+        <div className="skeleton h-8 w-48" />
+        <div className="skeleton h-4 w-72" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="glass-card p-6 space-y-3">
+              <div className="skeleton h-3 w-20" />
+              <div className="skeleton h-5 w-40" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="glass-card p-0 overflow-hidden">
