@@ -64,22 +64,6 @@ export default function AppLayout() {
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Logo */}
-        <div className="p-6 pb-2">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'var(--color-accent-burgundy)' }}>
-              <span className="text-white text-sm font-bold">F</span>
-            </div>
-            <div>
-              <h1 className="text-sm font-bold text-text-primary tracking-tight">
-                FundsRoom
-              </h1>
-              <p className="text-[10px] text-text-muted font-medium tracking-wider uppercase">
-                ERP Operations
-              </p>
-            </div>
-          </div>
-        </div>
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
