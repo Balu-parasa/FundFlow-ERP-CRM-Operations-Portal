@@ -68,6 +68,20 @@ FundsRoom ERP is a full-stack ERP application designed to manage:
 
 **Database:**
 - MySQL
+## 4. Architecture
+
+```
+React Client
+      ↓
+REST API
+      ↓
+Express + TypeScript
+      ↓
+Prisma ORM
+      ↓
+MySQL
+```
+The backend follows a modular controller/route/middleware structure.
 
 
 ## 5. Role-Based Access
