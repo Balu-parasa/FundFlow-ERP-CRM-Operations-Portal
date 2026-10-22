@@ -195,9 +195,4 @@ A complete Postman collection is included to test all API endpoints easily.
 2. The collection uses a `{{baseUrl}}` variable (default: `http://localhost:5000`).
 3. Send the **Login** request first to automatically set your JWT `{{token}}` variable for subsequent requests.
 
-## 15. Known Limitations
 
-- **File Uploads:** Customer documents or product images are not implemented.
-- **Reporting:** Advanced PDF exports and analytic dashboards are placeholders or not fully implemented.
-- **Email/Notifications:** System does not currently send actual emails on user signup or challan creation.
-- **Deployment:** Instructions provided are strictly for local development setup.
