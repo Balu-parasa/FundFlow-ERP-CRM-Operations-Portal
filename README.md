@@ -165,7 +165,6 @@ npm run dev
 ```
 Create a `.env` file from `.env.example` and configure your local MySQL connection.
 
-## 11. Environment Variables
 
 ## 12. Demo Credentials
 (For case-study evaluation in development environments)
